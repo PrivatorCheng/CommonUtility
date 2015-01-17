@@ -306,7 +306,6 @@ Public Class ClsArrayFunction
     End Sub
 
 #End Region
-
     Private Function AddDot(ByVal s As String) As String
         Dim sVal As String
         Try
