@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pub_Entity", "Pub_Entity\Pub_Entity.vbproj", "{D15E8980-B3F3-4275-8CF4-B66E1086161A}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pub_Library", "Pub_Library\Pub_Library.vbproj", "{2EEFB16F-9154-4EBB-9872-2977CF3E0505}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pub_WebCtrl", "Pub_WebCtrl\Pub_WebCtrl.vbproj", "{8E4AF09A-469F-405D-854B-6FA42AE07F7D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Pub_WinForm", "Pub_WinForm\Pub_WinForm.vbproj", "{434609D8-BF35-4925-9264-41CC986F8543}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +29,10 @@ Global
 		{8E4AF09A-469F-405D-854B-6FA42AE07F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E4AF09A-469F-405D-854B-6FA42AE07F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E4AF09A-469F-405D-854B-6FA42AE07F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{434609D8-BF35-4925-9264-41CC986F8543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{434609D8-BF35-4925-9264-41CC986F8543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{434609D8-BF35-4925-9264-41CC986F8543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{434609D8-BF35-4925-9264-41CC986F8543}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

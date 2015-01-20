@@ -329,6 +329,28 @@ Public Class CommLib
 
 #End Region
 
+#Region "Process"
+    Private Declare Function GetWindowThreadProcessId Lib "user32" (ByVal hWnd As Integer, ByRef lpdwProcessId As IntPtr) As IntPtr
+    Public Sub KillProcessByHwnd(ByVal hwnd As Integer)
+        Try
+            Dim iProcessID As IntPtr
+            GetWindowThreadProcessId(hwnd, iProcessID)
+
+            Dim p As Process = Process.GetProcessById(iProcessID.ToInt32())
+            p.Kill()
+        Catch ex As Exception
+            Throw New Exception(ex.Message)
+        End Try
+    End Sub
+    Public Function GetWindowProcessID(ByVal hwnd As Integer) As Integer
+        Dim iProcessID As IntPtr
+        GetWindowThreadProcessId(hwnd, iProcessID)
+
+        Return iProcessID.ToInt32
+    End Function
+
+#End Region
+
     ''' <summary>
     ''' 用指定的登錄事件來源，將有指定訊息文字的錯誤、警告、資訊、成功稽核或失敗稽核項目寫入事件記錄檔。
     ''' </summary>
