@@ -262,32 +262,40 @@ Public Class CommLib
             da.SelectCommand = GetSelectCommand(ds.Tables(sTableName), cn)
 
 
-            If Not IsNothing(trn) Then
-                da.SelectCommand.Transaction = trn
-            End If
 
             'da.Fill(ds.Tables(sTableName))
             'cb.RefreshSchema()
 
-            If Not IsNothing(trn) Then
-                'da.InsertCommand = cb.GetInsertCommand
-                'da.InsertCommand.Transaction = trn
-                'da.UpdateCommand = cb.GetUpdateCommand
-                'da.UpdateCommand.Transaction = trn
-                'da.DeleteCommand.Transaction = trn
-                'da.DeleteCommand = cb.GetDeleteCommand
+            'KEVIN150223
+            'If Not IsNothing(trn) Then
+            '    da.SelectCommand.Transaction = trn
+            'End If
+            'If Not IsNothing(trn) Then
+            '    'da.InsertCommand = cb.GetInsertCommand
+            '    'da.InsertCommand.Transaction = trn
+            '    'da.UpdateCommand = cb.GetUpdateCommand
+            '    'da.UpdateCommand.Transaction = trn
+            '    'da.DeleteCommand.Transaction = trn
+            '    'da.DeleteCommand = cb.GetDeleteCommand
 
-                da.InsertCommand = GetInsertCommand(ds.Tables(sTableName), cn)
-                da.InsertCommand.Transaction = trn
-                da.UpdateCommand = GetUpdateCommand(ds.Tables(sTableName), cn)
-                da.UpdateCommand.Transaction = trn
-                da.DeleteCommand = GetDeleteCommand(ds.Tables(sTableName), cn)
-                da.DeleteCommand.Transaction = trn
+            '    da.InsertCommand = GetInsertCommand(ds.Tables(sTableName), cn)
+            '    da.InsertCommand.Transaction = trn
+            '    da.UpdateCommand = GetUpdateCommand(ds.Tables(sTableName), cn)
+            '    da.UpdateCommand.Transaction = trn
+            '    da.DeleteCommand = GetDeleteCommand(ds.Tables(sTableName), cn)
+            '    da.DeleteCommand.Transaction = trn
 
-                'cb.GetInsertCommand.Transaction = trn
-                'cb.GetUpdateCommand.Transaction = trn
-                'cb.GetDeleteCommand.Transaction = trn
-            End If
+            '    'cb.GetInsertCommand.Transaction = trn
+            '    'cb.GetUpdateCommand.Transaction = trn
+            '    'cb.GetDeleteCommand.Transaction = trn
+            'End If
+            da.SelectCommand.Transaction = trn
+            da.InsertCommand = GetInsertCommand(ds.Tables(sTableName), cn)
+            da.InsertCommand.Transaction = trn
+            da.UpdateCommand = GetUpdateCommand(ds.Tables(sTableName), cn)
+            da.UpdateCommand.Transaction = trn
+            da.DeleteCommand = GetDeleteCommand(ds.Tables(sTableName), cn)
+            da.DeleteCommand.Transaction = trn
 
             da.Update(ds, sTableName)
 
