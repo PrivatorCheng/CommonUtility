@@ -359,7 +359,11 @@ Public Class CommLib
     ''' <param name="t">其中一個 EventLogEntryType 值</param>
     ''' <remarks></remarks>
     Public Sub WriteEventLog(ByVal sSrc As String, ByVal sDesc As String, ByVal t As Diagnostics.EventLogEntryType)
-        System.Diagnostics.EventLog.WriteEntry(sSrc, sDesc, t)
+        Try
+            System.Diagnostics.EventLog.WriteEntry(sSrc, sDesc, t)
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Public Sub WriteDataSetXMLFile(ByVal sFile As String, ByVal ds As DataSet)
