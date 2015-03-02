@@ -60,4 +60,8 @@ Public Class WebCommLib
         Return VisitorsIPAddr
 
     End Function
+
+    Public Function GetQRCodeImageSrc(ByVal srcUrl As String) As String
+        Return "https://chart.googleapis.com/chart?chs=180x180&cht=qr&chl=" & srcUrl & "&chld=L|4"
+    End Function
 End Class

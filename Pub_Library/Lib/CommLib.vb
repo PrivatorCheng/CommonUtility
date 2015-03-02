@@ -5,6 +5,7 @@ Public Class CommLib
     Private ELib As New Pub_Entity.CommLib
     Private _cn As OleDb.OleDbConnection 'for SetPrimaryKey
     Private _trn As OleDb.OleDbTransaction 'for SetPrimaryKey
+    Private Const DB_DateFormat As String = "YYYY-MM-DD"
 
 #Region "資料庫函式"
 
@@ -261,32 +262,40 @@ Public Class CommLib
             da.SelectCommand = GetSelectCommand(ds.Tables(sTableName), cn)
 
 
-            If Not IsNothing(trn) Then
-                da.SelectCommand.Transaction = trn
-            End If
 
             'da.Fill(ds.Tables(sTableName))
             'cb.RefreshSchema()
 
-            If Not IsNothing(trn) Then
-                'da.InsertCommand = cb.GetInsertCommand
-                'da.InsertCommand.Transaction = trn
-                'da.UpdateCommand = cb.GetUpdateCommand
-                'da.UpdateCommand.Transaction = trn
-                'da.DeleteCommand.Transaction = trn
-                'da.DeleteCommand = cb.GetDeleteCommand
+            'KEVIN150223
+            'If Not IsNothing(trn) Then
+            '    da.SelectCommand.Transaction = trn
+            'End If
+            'If Not IsNothing(trn) Then
+            '    'da.InsertCommand = cb.GetInsertCommand
+            '    'da.InsertCommand.Transaction = trn
+            '    'da.UpdateCommand = cb.GetUpdateCommand
+            '    'da.UpdateCommand.Transaction = trn
+            '    'da.DeleteCommand.Transaction = trn
+            '    'da.DeleteCommand = cb.GetDeleteCommand
 
-                da.InsertCommand = GetInsertCommand(ds.Tables(sTableName), cn)
-                da.InsertCommand.Transaction = trn
-                da.UpdateCommand = GetUpdateCommand(ds.Tables(sTableName), cn)
-                da.UpdateCommand.Transaction = trn
-                da.DeleteCommand = GetDeleteCommand(ds.Tables(sTableName), cn)
-                da.DeleteCommand.Transaction = trn
+            '    da.InsertCommand = GetInsertCommand(ds.Tables(sTableName), cn)
+            '    da.InsertCommand.Transaction = trn
+            '    da.UpdateCommand = GetUpdateCommand(ds.Tables(sTableName), cn)
+            '    da.UpdateCommand.Transaction = trn
+            '    da.DeleteCommand = GetDeleteCommand(ds.Tables(sTableName), cn)
+            '    da.DeleteCommand.Transaction = trn
 
-                'cb.GetInsertCommand.Transaction = trn
-                'cb.GetUpdateCommand.Transaction = trn
-                'cb.GetDeleteCommand.Transaction = trn
-            End If
+            '    'cb.GetInsertCommand.Transaction = trn
+            '    'cb.GetUpdateCommand.Transaction = trn
+            '    'cb.GetDeleteCommand.Transaction = trn
+            'End If
+            da.SelectCommand.Transaction = trn
+            da.InsertCommand = GetInsertCommand(ds.Tables(sTableName), cn)
+            da.InsertCommand.Transaction = trn
+            da.UpdateCommand = GetUpdateCommand(ds.Tables(sTableName), cn)
+            da.UpdateCommand.Transaction = trn
+            da.DeleteCommand = GetDeleteCommand(ds.Tables(sTableName), cn)
+            da.DeleteCommand.Transaction = trn
 
             da.Update(ds, sTableName)
 
@@ -751,7 +760,7 @@ Public Class CommLib
         'Return sTmp
     End Function
 
-    'todo: for SQL Server only currently
+    'todo: [Common]for SQL Server only currently
     Public Sub SetPrimaryKey(ByVal sender As Object, _
                                     ByVal e As OleDb.OleDbRowUpdatedEventArgs)
 
@@ -948,6 +957,37 @@ Public Class CommLib
         End Try
         'Next
     End Sub
+#End Region
+
+    'Todo: [Common]For Oracle Only now
+#Region "SQL String Function"
+    Public Function GetDateSQLStringBetween(ByVal dDate1 As Date, ByVal dDate2 As Date) As String
+        Dim s As String = ""
+        s = " BETWEEN TO_DATE(" & AddQuote(dDate1.ToString(DB_DateFormat) & " 00:00:00") & ", " & AddQuote(DB_DateFormat & " :HH24:MI:SS") & ")"
+        s += " AND TO_DATE(" & AddQuote(dDate2.ToString(DB_DateFormat) & " 23:59:59") & ", " & AddQuote(DB_DateFormat & " :HH24:MI:SS") & ")"
+        Return s
+    End Function
+
+    Public Function GetDateSQLString(ByVal dDate As Date) As String
+        Return GetDateSQLString(dDate.ToString(DB_DateFormat))
+    End Function
+
+    Public Function GetDateSQLString(ByVal sDate As String) As String
+        Dim s As String = ""
+
+        s = "TO_DATE(" & AddQuote(sDate) & "," & AddQuote(DB_DateFormat) & ") "
+        'SqlStr7 = " AND TRANS_DATE = TO_DATE('" & Trim(sTransFromDate) & "','" & DB_DateFormat & "') "
+        Return s
+    End Function
+
+
+    'CYGOO130711_1
+    Public Function GetDateTimeSQLString(ByVal sDate As Date) As String
+        Dim s As String = ""
+        s = "TO_DATE(" & AddQuote(sDate.ToString(DB_DateFormat) & " 23:59:59") & ", " & AddQuote(DB_DateFormat & " :HH24:MI:SS") & ")"
+        Return s
+    End Function
+
 #End Region
 
     Public Sub WriteToWindowsEvent(ByVal aSource As String, ByVal aMessage As String)
