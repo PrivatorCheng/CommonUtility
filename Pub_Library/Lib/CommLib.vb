@@ -751,6 +751,15 @@ Public Class CommLib
         Return s
     End Function
 
+    Public Function AppendOr(ByVal ori_s As String, ByVal s As String) As String
+        If ori_s = "" Then
+            s = " WHERE " & s
+        Else
+            s = ori_s & " OR " & s
+        End If
+        Return s
+    End Function
+
     Public Function AddQuote(ByVal s As String) As String
         Return ELib.AddQuote(s)
         'Dim sTmp As String = ""
